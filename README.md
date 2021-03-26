@@ -21,3 +21,42 @@ asynchronous validation
 
 e.g. username
 
+---
+### Requrements
+The form needs to fulfill the following requirement:
+
+Text field
+
+Mandatory
+
+Alphanumeric only
+
+Text field
+
+With placeholder
+
+Disabled
+
+Email field
+
+Need to be valid Email
+
+Number field
+
+Mandatory
+
+Number only
+
+Date field
+
+Select option list
+
+Checkbox set
+
+Radio set
+
+Password field
+
+Confirm password field
+
+Depend on the Password field
