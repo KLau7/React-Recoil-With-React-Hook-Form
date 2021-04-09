@@ -1,14 +1,22 @@
 import './App.scss';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 function App() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm();
-  const onSubmit = data => console.log(data);
+
+  const password = useRef({});
+  password.current = watch('password', '');
+  const onSubmit = (data, e) => {
+    console.log(data, 'data');
+    console.log(e, 'e');
+  };
+
   console.log(errors);
 
   return (
@@ -46,6 +54,12 @@ function App() {
         {errors.lastName?.type === 'required' && <p>Your input is required</p>}
         {errors.lastName?.type === 'onlyEng' && <p>Your input should be english</p>}
       </div>
+
+      <div style={{ marginBottom: 10 }}>
+        <label>Disabled</label>
+        <input type='text' name='disabled' disabled />
+      </div>
+
       <div style={{ marginBottom: 10 }}>
         <label>Email</label>
         <input
@@ -53,7 +67,10 @@ function App() {
           name='Email'
           ref={register({
             required: 'Your input is required',
-            pattern: { value: /^\S+@\S+$/i, message: 'Invaild email format' }
+            pattern: {
+              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+              message: 'Invaild email format'
+            }
           })}
         />
         {errors.Email && <p>{errors.Email.message}</p>}
@@ -70,6 +87,35 @@ function App() {
       </div>
 
       <div>
+        <label>Password</label>
+        <input
+          placeholder='Enter at least 8 characters'
+          type='password'
+          name='password'
+          ref={register({
+            required: 'You must specify a password',
+            minLength: {
+              value: 8,
+              message: 'Password must have at least 8 characters'
+            }
+          })}
+        />
+        {errors.password && <p>{errors.password.message}</p>}
+      </div>
+
+      <div>
+        <label>Repeat password</label>
+        <input
+          name='password_repeat'
+          type='password'
+          ref={register({
+            validate: value => value === password.current || 'The passwords do not match'
+          })}
+        />
+        {errors.password_repeat && <p>{errors.password_repeat.message}</p>}
+      </div>
+
+      <div>
         <label>Date</label>
         <input
           type='date'
@@ -80,21 +126,28 @@ function App() {
       </div>
 
       <div>
-        <label className="labelRadio">
+        <label className='labelRadio'>
           Yes
-        <input ref={register({ required: true })} type="radio" value="Yes" />
+          <input
+            ref={register({ required: 'Please select radio button' })}
+            type='radio'
+            value='Yes'
+            name='radio'
+          />
         </label>
-        
-        <label className="labelRadio">
+
+        <label className='labelRadio'>
           No
-          <input ref={register({ required: true })} type="radio" value="No" />
+          <input
+            ref={register({ required: 'Please select radio button' })}
+            type='radio'
+            value='No'
+            name='radio'
+          />
         </label>
-        
-      
 
-        {errors.dropdown && <p>{errors.dropdown.message}</p>}
+        {errors.radio && <p>{errors.radio.message}</p>}
       </div>
-
 
       <div>
         <label>Options</label>
@@ -105,6 +158,39 @@ function App() {
         </select>
 
         {errors.dropdown && <p>{errors.dropdown.message}</p>}
+      </div>
+
+      <div>
+        <label className='labelRadio newLine'>
+          <input
+            type='checkbox'
+            name='checkbox'
+            value='checkbox1'
+            ref={register({ required: 'select at least one' })}
+          />
+          checkbox1
+        </label>
+
+        <label className='labelRadio newLine'>
+          <input
+            type='checkbox'
+            name='checkbox'
+            value='checkbox2'
+            ref={register({ required: 'select at least one' })}
+          />
+          checkbox2
+        </label>
+
+        <label className='labelRadio newLine'>
+          <input
+            type='checkbox'
+            name='checkbox'
+            value='checkbox3'
+            ref={register({ required: 'select at least one' })}
+          />
+          checkbox3
+        </label>
+        {errors.checkbox && <p>{errors.checkbox.message}</p>}
       </div>
 
       <input type='submit' />

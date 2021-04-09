@@ -31,6 +31,19 @@ select {
 
 .labelRadio{
   margin-right: 20px;
+  margin-bottom: 0;
+  display: inline-block;
+
+  input{
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+  }
+
+  &.newLine{
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 
 [type="radio"]{

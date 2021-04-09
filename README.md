@@ -31,9 +31,7 @@ Mandatory
 
 Alphanumeric only
 
-Text field
-
-With placeholder
+Text field With placeholder
 
 Disabled
 
