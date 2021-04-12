@@ -1,10 +1,10 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { submittedFormState } from '../../states/atoms';
 import './progressIndicator.scss'
 
 const CompletedForm = () => {
 
-    const [submittedFormData] = useRecoilState(submittedFormState);
+    const submittedFormData = useRecoilValue(submittedFormState);
     // useEffect(()=>{
     //     return console.log(atom);
     // }, [atom])
