@@ -1,5 +1,9 @@
 import {useRef} from 'react';
 import { useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+
+import { exampleAtom } from '../../states/atoms';
+
 import './form.scss';
 
 const Form = () => {
@@ -11,9 +15,23 @@ const Form = () => {
         console.log(data, 'data');
         console.log(e, 'e');
     };
+
+    const [atom, setAtom] = useRecoilState(exampleAtom);
     
     return(
         <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>Sample Atom</label>
+        <input
+          type='text'
+          name='atom'
+          value={atom}
+          onChange={(e)=>{setAtom(e.target.value)}}
+        />
+        {errors.firstName?.type === 'required' && <p className="error-msg">Your input is required</p>}
+        {errors.firstName?.message && <p className="error-msg">Your input is required</p>}
+      </div>
+
       <div>
         <label>First Name</label>
         <input
