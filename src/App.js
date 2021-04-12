@@ -3,7 +3,7 @@ import { RecoilRoot } from 'recoil';
 import './App.scss';
 
 import Form from './components/Form'
-import ProgressIndicator from './components/ProgressIndicator';
+import CompletedForm from './components/CompletedForm';
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
     <div id="App">
       <RecoilRoot>
         <Form/>
-        <ProgressIndicator/>
+        <CompletedForm/>
       </RecoilRoot>
     </div>
   )

@@ -7,10 +7,11 @@ import { exampleAtom } from '../../states/atoms';
 import './form.scss';
 
 const Form = () => {
-    const {register,handleSubmit,watch,formState: { errors }} = useForm();
+    const {register, handleSubmit, watch, formState, formState: { errors }} = useForm({mode:'onChange'});
 
     const password = useRef({});
     password.current = watch('password', '');
+    const watchAllFields = watch();
     const onSubmit = (data, e) => {
         console.log(data, 'data');
         console.log(e, 'e');
@@ -18,8 +19,10 @@ const Form = () => {
 
     const [atom, setAtom] = useRecoilState(exampleAtom);
     
+    
     return(
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+
       <div>
         <label>Sample Atom</label>
         <input
@@ -45,6 +48,9 @@ const Form = () => {
             },
             pattern: { value: /[A-Za-z]/, message: 'Your input should be english' }
           })}
+          onChange={()=>{
+            console.log(watchAllFields)
+          }}
         />
         {errors.firstName?.type === 'required' && <p className="error-msg">Your input is required</p>}
         {errors.firstName?.message && <p className="error-msg">Your input is required</p>}
