@@ -1,9 +1,8 @@
 import {useRef} from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
-import { submittedFormState } from '../../states/atoms';
-// import { exampleAtom } from '../../states/atoms';
-
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { submittedFormState, existingProfiles } from '../../states/atoms';
+import {currentPageState } from '../../states/atoms';
 import './form.scss';
 
 const Form = () => {
@@ -13,16 +12,25 @@ const Form = () => {
     password.current = watch('password', '');
     const watchAllFields = watch();
     const [completedFormState, setCompletedFormState] = useRecoilState(submittedFormState);
+
+    const [allUserProfiles, setAllUserProfiles] = useRecoilState(existingProfiles)
+
+    const [displayPage, setDisplayPage] = useRecoilState(currentPageState)
+
     const onSubmit = (data) => {
-      console.log('submit data');
-      console.log(completedFormState);
+      console.log('allUserProfiles: ', allUserProfiles);
+      setAllUserProfiles([...allUserProfiles, data]);
+
+      console.log('allUserProfiles: ', allUserProfiles);
+
+      setDisplayPage('completed');
       return setCompletedFormState(data);
     };
 
     
     
     return(
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{display : displayPage === 'createAct' ? 'initial': 'none'}}>
 
       <div>
         <label>First Name</label>

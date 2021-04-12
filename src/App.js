@@ -1,19 +1,20 @@
-import { RecoilRoot } from 'recoil';
-
+import { RecoilRoot, useRecoilValue } from 'recoil';
 import './App.scss';
-
+import Login from './components/Login';
 import Form from './components/Form'
 import CompletedForm from './components/CompletedForm';
 
-function App() {
+import {currentPageState} from './states/atoms';
 
+function App() {
   return (
-    <div id="App">
-      <RecoilRoot>
-        <Form/>
-        <CompletedForm/>
-      </RecoilRoot>
-    </div>
+    <RecoilRoot>
+      <div id="App">
+          <Login/>
+          <Form/>
+          <CompletedForm/>
+      </div>
+    </RecoilRoot>
   )
 }
 
