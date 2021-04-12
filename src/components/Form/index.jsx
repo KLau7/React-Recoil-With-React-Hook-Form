@@ -18,11 +18,7 @@ const Form = () => {
     const [displayPage, setDisplayPage] = useRecoilState(currentPageState)
 
     const onSubmit = (data) => {
-      console.log('allUserProfiles: ', allUserProfiles);
       setAllUserProfiles([...allUserProfiles, data]);
-
-      console.log('allUserProfiles: ', allUserProfiles);
-
       setDisplayPage('completed');
       return setCompletedFormState(data);
     };
