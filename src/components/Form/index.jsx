@@ -1,39 +1,28 @@
 import {useRef} from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-
-import { exampleAtom } from '../../states/atoms';
+import { submittedFormState } from '../../states/atoms';
+// import { exampleAtom } from '../../states/atoms';
 
 import './form.scss';
 
 const Form = () => {
-    const {register, handleSubmit, watch, formState, formState: { errors }} = useForm({mode:'onChange'});
+    const {register, handleSubmit, watch, formState: { errors }} = useForm({mode:'onChange'});
 
     const password = useRef({});
     password.current = watch('password', '');
     const watchAllFields = watch();
-    const onSubmit = (data, e) => {
-        console.log(data, 'data');
-        console.log(e, 'e');
+    const [completedFormState, setCompletedFormState] = useRecoilState(submittedFormState);
+    const onSubmit = (data) => {
+      console.log('submit data');
+      console.log(completedFormState);
+      return setCompletedFormState(data);
     };
 
-    const [atom, setAtom] = useRecoilState(exampleAtom);
     
     
     return(
     <form onSubmit={handleSubmit(onSubmit)}>
-
-      <div>
-        <label>Sample Atom</label>
-        <input
-          type='text'
-          name='atom'
-          value={atom}
-          onChange={(e)=>{setAtom(e.target.value)}}
-        />
-        {errors.firstName?.type === 'required' && <p className="error-msg">Your input is required</p>}
-        {errors.firstName?.message && <p className="error-msg">Your input is required</p>}
-      </div>
 
       <div>
         <label>First Name</label>

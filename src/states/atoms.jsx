@@ -1,8 +1,6 @@
 import { atom } from 'recoil';
 
-const exampleAtom = atom({
-    key: 'exampleAtom',
-    default: 'hello world'
+export const submittedFormState = atom({
+    key: 'submittedFormState',
+    default: {}
 })
-
-export {exampleAtom};
