@@ -3,6 +3,7 @@ import './App.scss';
 import Login from './components/Login';
 import Form from './components/Form'
 import CompletedForm from './components/CompletedForm';
+import UserProfile from './components/Profile';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Login/>
           <Form/>
           <CompletedForm/>
+          <UserProfile />
       </div>
     </RecoilRoot>
   )
