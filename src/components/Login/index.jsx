@@ -1,4 +1,3 @@
-import Form from "../Form";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentPageState, existingProfiles } from "../../states/atoms";
 import { useCallback, useEffect, useRef } from "react";
