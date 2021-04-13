@@ -1,6 +1,7 @@
 import Form from "../Form";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentPageState, existingProfiles } from "../../states/atoms";
+import { useEffect, useRef } from "react";
 
 const Login = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
@@ -10,7 +11,15 @@ const Login = () => {
         setCurrentPage('createAct')
     }
 
-    console.log('loginsCollectionsState: ', loginsCollectionsState);
+    const pwRef = useRef(null);
+    const emailChangeHandler = (index) => {
+        pwRef.current.value = loginsCollectionsState[index].password;
+    }
+    useEffect(() => {
+        if (loginsCollectionsState.length > 0) {
+            emailChangeHandler(0);
+        }
+    }, [emailChangeHandler, loginsCollectionsState.length]);
 
     return (
         <div id="login" style={{display: currentPage === 'login' ? 'initial' : 'none' }}>
@@ -18,17 +27,15 @@ const Login = () => {
             <h1>Select a profile to login:</h1>
 
             <label htmlFor="email">Email:</label>
-            <select name="email" id="email">
+            <select name="email" id="email" onChange={(e) => {emailChangeHandler(e.target.options.selectedIndex)}}>
                 {loginsCollectionsState.length === 0 && <option>No logins, create an account instead</option>}
-                {loginsCollectionsState && loginsCollectionsState.map((p)=>{
-                    return <option value="email">{p.Email}</option>
-                })}
+                {loginsCollectionsState && loginsCollectionsState.map((p)=>(
+                    <option value="email">{p.Email}</option>
+                ))}
             </select>
 
             <label htmlFor="pw">Password:</label>
-            <select name="pw" id="pw">
-                <input type="text"/>
-            </select>
+            <input type="text" id="pw" ref={pwRef}/>
 
             <button>Login</button>
             
