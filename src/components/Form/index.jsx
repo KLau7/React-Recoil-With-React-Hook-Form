@@ -2,7 +2,7 @@ import {useRef} from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { submittedFormState, existingProfiles } from '../../states/atoms';
-import {currentPageState } from '../../states/atoms';
+import {currentPageState, newUserAgeState, newUserAgeDerivedState } from '../../states/atoms';
 import './form.scss';
 
 const Form = () => {
@@ -11,11 +11,18 @@ const Form = () => {
     const password = useRef({});
     password.current = watch('password', '');
     const watchAllFields = watch();
+
     const [completedFormState, setCompletedFormState] = useRecoilState(submittedFormState);
 
     const [allUserProfiles, setAllUserProfiles] = useRecoilState(existingProfiles)
 
-    const [displayPage, setDisplayPage] = useRecoilState(currentPageState)
+    const [displayPage, setDisplayPage] = useRecoilState(currentPageState);
+
+    const [birthDate, setBirthDate] = useRecoilState(newUserAgeState);
+
+    const onAgeChangeHandler = (e) => setBirthDate(e.target.value);
+    const userAge = useRecoilValue(newUserAgeDerivedState);
+
 
     const onSubmit = (data) => {
       setAllUserProfiles([...allUserProfiles, data]);
@@ -28,6 +35,8 @@ const Form = () => {
     return(
     <form onSubmit={handleSubmit(onSubmit)} style={{display : displayPage === 'createAct' ? 'initial': 'none'}}>
 
+      <h1>Create An Account</h1>
+      
       <div>
         <label>First Name</label>
         <input
@@ -87,7 +96,7 @@ const Form = () => {
       </div>
 
       <div>
-        <label>Age</label>
+        <label>How much money do you have?</label>
         <input
           type='text'
           name='age'
@@ -126,14 +135,20 @@ const Form = () => {
       </div>
 
       <div>
-        <label>Date</label>
+        <label>Birth Date</label>
         <input
           type='date'
           name='date'
           ref={register({ required: 'Wrong Date format', valueAsDate: false })}
+          // controlled
+          onChange={(e)=>onAgeChangeHandler(e)}
         />
         {errors.date && <p className="error-msg">{errors.date.message}</p>}
       </div>
+
+      {/* age derived from date */}
+      {userAge && <p>You're {userAge} years old</p>}
+
 
       <div>
         <label className='labelRadio'>
