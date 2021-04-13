@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { submittedFormState, existingProfiles } from '../../states/atoms';
 import {currentPageState, newUserAgeState, newUserAgeDerivedState } from '../../states/atoms';
 import './form.scss';
@@ -12,15 +12,17 @@ const Form = () => {
     password.current = watch('password', '');
     const watchAllFields = watch();
 
-    const [completedFormState, setCompletedFormState] = useRecoilState(submittedFormState);
+    // recoil
+    const setCompletedFormState = useSetRecoilState(submittedFormState);
 
     const [allUserProfiles, setAllUserProfiles] = useRecoilState(existingProfiles)
 
     const [displayPage, setDisplayPage] = useRecoilState(currentPageState);
 
-    const [birthDate, setBirthDate] = useRecoilState(newUserAgeState);
+    const setBirthDate = useSetRecoilState(newUserAgeState);
 
     const onAgeChangeHandler = (e) => setBirthDate(e.target.value);
+
     const userAge = useRecoilValue(newUserAgeDerivedState);
 
 
