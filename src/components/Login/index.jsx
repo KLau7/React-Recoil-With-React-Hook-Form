@@ -1,7 +1,7 @@
 import Form from "../Form";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentPageState, existingProfiles } from "../../states/atoms";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 const Login = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
@@ -12,9 +12,9 @@ const Login = () => {
     }
 
     const pwRef = useRef(null);
-    const emailChangeHandler = (index) => {
+    const emailChangeHandler = useCallback((index) => {
         pwRef.current.value = loginsCollectionsState[index].password;
-    }
+    }, [pwRef, loginsCollectionsState])
     useEffect(() => {
         if (loginsCollectionsState.length > 0) {
             emailChangeHandler(0);
