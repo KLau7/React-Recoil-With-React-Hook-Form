@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import {currentPageState, currentUser, existingProfiles} from '../../states/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {currentPageState, currentUserProfile} from '../../states/atoms';
 
 const UserProfile = () => {
 
-    const currentPage = useRecoilValue(currentPageState);
-    const user = useRecoilValue(currentUser);
-    const profiles = useRecoilValue(existingProfiles);
-
-    const [profile, setProfile] = useState(null);
-    useEffect(() => {
-        setProfile(profiles.find((item) => item.Email === user.email));
-        console.log(profile);
-    }, [])
+    const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+    const profile = useRecoilValue(currentUserProfile);
 
     return (
         <div id="userProfilePage" style={{display: currentPage === 'profile' ? 'initial' : 'none' }}>
-            User information here
-            {profile}
+            <h1>Your Profile</h1>
+            {profile && 
+                <>
+                    <p>{profile.firstName} {profile.lastName}</p>
+                    <p>{profile.Email}</p>
+                    <p>{profile.dropdown}</p>
+                    <p>{profile.checkbox}</p>
+                </>
+            }
+            <button onClick={() => {setCurrentPage('login')}}>Log out</button>
         </div>
     )
 }

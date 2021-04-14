@@ -5,9 +5,23 @@ export const currentPageState = atom({
     default: 'login'
 })
 
+export const currentUser = atom({
+    key: 'currentUser',
+    default: ''
+})
+
 export const existingProfiles = atom({
     key: 'existingProfiles',
     default: []
+})
+
+export const currentUserProfile = selector({
+    key: 'currentUserProfile',
+    get: ({get}) => {
+        const profiles = get(existingProfiles);
+        const user = get(currentUser);
+        return profiles.find(item => item.Email === user);
+    }
 })
 
 export const submittedFormState = atom({
