@@ -50,6 +50,8 @@ const Login = () => {
             
             <p>Don't already have an account? <button onClick={handleOnClick}>Create an account instead</button></p>
 
+            <button onClick={() => {setCurrentPage('contextShowcasePage')}}>Go to Context Showcase page</button>
+
         </div>
     )
 }

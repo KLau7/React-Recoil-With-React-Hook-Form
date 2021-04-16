@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Form from './components/Form'
 import CompletedForm from './components/CompletedForm';
 import UserProfile from './components/Profile';
+import ContextShowcase from './components/ContextShowcase/contextShowcase';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Form/>
           <CompletedForm/>
           <UserProfile />
+          <ContextShowcase />
       </div>
     </RecoilRoot>
   )
