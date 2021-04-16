@@ -1,0 +1,47 @@
+.news {
+    .general {
+
+    }
+}
+
+.teamNewsContainer{
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px;
+    .magma & {
+        border-color: #686868;
+        background-color: #e05078;
+        color: white;
+    }
+    .aqua & {
+        border-color: #52b8e9;
+        background-color: #e7f6fd;
+        color: #52b8e9;
+    }
+    p {
+        margin-bottom: 0;
+    }
+    button {
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+}
+
+.siteSettingsContainer {
+    button {
+        margin: 0;
+        margin-bottom: 5px;
+    }
+    .siteSettingsInputContainer {
+        display: flex;
+        align-items: center;
+        padding-bottom: 20px;
+
+        input, button {
+            height: 40px;
+            margin: 0;
+            margin-right: 10px;
+        }
+    }
+}
