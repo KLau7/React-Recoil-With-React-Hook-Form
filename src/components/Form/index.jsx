@@ -6,11 +6,18 @@ import {currentPageState, newUserAgeState, newUserAgeDerivedState } from '../../
 import './form.scss';
 
 const Form = () => {
-    const {register, handleSubmit, watch, formState: { errors }} = useForm({mode:'onChange'});
+    const { 
+      register,
+      handleSubmit,
+      watch,
+      reset,
+      formState: { errors , isValid }
+    } = useForm({mode:'onChange', shouldFocusError: true });
 
     const password = useRef({});
     password.current = watch('password', '');
     const watchAllFields = watch();
+
 
     // recoil
     const setCompletedFormState = useSetRecoilState(submittedFormState);
@@ -32,7 +39,6 @@ const Form = () => {
       return setCompletedFormState(data);
     };
 
-    
     
     return(
     <form onSubmit={handleSubmit(onSubmit)} style={{display : displayPage === 'createAct' ? 'initial': 'none'}}>
@@ -57,7 +63,7 @@ const Form = () => {
           }}
         />
         {errors.firstName?.type === 'required' && <p className="error-msg">Your input is required</p>}
-        {errors.firstName?.message && <p className="error-msg">Your input is required</p>}
+        {errors.firstName?.message && <p className="error-msg">{errors.firstName.message}</p>}
       </div>
       
       <div style={{ marginBottom: 10 }}>
@@ -115,13 +121,14 @@ const Form = () => {
           name='password'
           ref={register({
             required: 'You must specify a password',
-            minLength: {
-              value: 8,
-              message: 'Password must have at least 8 characters'
+            validate: {
+              minLength: value => value.length >= 8,
+              onlyEng: value => /^[a-zA-Z]+$/.test(value)
             }
           })}
         />
-        {errors.password && <p className="error-msg">{errors.password.message}</p>}
+        {errors.password?.type == "onlyEng" && <p className="error-msg">Only english</p>}
+        {errors.password?.type == "minLength" && <p className="error-msg">Enter at least 8 characters</p>}
       </div>
 
       <div>
