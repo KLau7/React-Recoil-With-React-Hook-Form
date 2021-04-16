@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 
 export const currentPageState = atom({
     key: 'currentPageState',
@@ -43,4 +43,28 @@ export const newUserAgeDerivedState = selector({
     }
 })
 
+// context API
+export const themeState = atom({
+    key: 'themeState',
+    default: 'light'
+})
 
+export const teamState = atom({
+    key: 'teamState',
+    default: 'magma'
+})
+
+export const newsState = atom({
+    key: 'newsState',
+    default: ['sports']
+})
+
+export const siteSettingsState = atomFamily({
+    key: 'siteSettingsState',
+    default: param => (param.length % 2 === 0)
+})
+
+export const siteSettingsKeys = atom({
+    key: 'siteSettingsKeys',
+    default: []
+})
