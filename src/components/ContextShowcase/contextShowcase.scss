@@ -1,0 +1,26 @@
+.siteSettingsContainer {
+    button {
+        margin: 0;
+        margin-bottom: 5px;
+    }
+}
+
+.siteSettingsInputContainer {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+
+    input, button {
+        height: 40px;
+        margin: 0;
+        margin-right: 10px;
+    }
+}
+
+.settingsButtonContainer {
+    margin: 10px;
+    margin-left: 0;
+    .settingsButton {
+        margin: 0px;
+    }
+}

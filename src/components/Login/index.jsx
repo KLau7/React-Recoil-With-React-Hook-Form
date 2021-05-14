@@ -1,7 +1,8 @@
-import Form from "../Form";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentPageState, existingProfiles } from "../../states/atoms";
+import { currentPageState, currentUser, existingProfiles } from "../../states/atoms";
 import { useCallback, useEffect, useRef } from "react";
+import { useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 
 const Login = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
@@ -21,25 +22,36 @@ const Login = () => {
         }
     }, [emailChangeHandler, loginsCollectionsState.length]);
 
+    const setLoginUser = useSetRecoilState(currentUser);
+    const loginHandler = (data) => {
+        setLoginUser(data.email);
+        setCurrentPage('profile');
+    }
+    const { register, handleSubmit } = useForm();
+
     return (
         <div id="login" style={{display: currentPage === 'login' ? 'initial' : 'none' }}>
 
             <h1>Select a profile to login:</h1>
 
-            <label htmlFor="email">Email:</label>
-            <select name="email" id="email" onChange={(e) => {emailChangeHandler(e.target.options.selectedIndex)}}>
-                {loginsCollectionsState.length === 0 && <option>No logins, create an account instead</option>}
-                {loginsCollectionsState && loginsCollectionsState.map((p)=>(
-                    <option value="email">{p.Email}</option>
-                ))}
-            </select>
+            <form onSubmit={handleSubmit(loginHandler)}>
+                <label htmlFor="email">Email:</label>
+                <select name="email" id="email" onChange={(e) => {emailChangeHandler(e.target.options.selectedIndex)}} ref={register()}>
+                    {loginsCollectionsState.length === 0 && <option>No logins, create an account instead</option>}
+                    {loginsCollectionsState && loginsCollectionsState.map((p)=>(
+                        <option value={p.Email} key={p.Email}>{p.Email}</option>
+                    ))}
+                </select>
 
-            <label htmlFor="pw">Password:</label>
-            <input type="text" id="pw" ref={pwRef}/>
+                <label htmlFor="pw">Password:</label>
+                <input type="text" id="pw" ref={pwRef}/>
 
-            <button>Login</button>
+                <input type="submit" value="Login" />
+            </form>
             
             <p>Don't already have an account? <button onClick={handleOnClick}>Create an account instead</button></p>
+
+            <button onClick={() => {setCurrentPage('contextShowcasePage')}}>Go to Context Showcase page</button>
 
         </div>
     )

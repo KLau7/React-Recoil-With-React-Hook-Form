@@ -1,10 +1,10 @@
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import './App.scss';
 import Login from './components/Login';
 import Form from './components/Form'
 import CompletedForm from './components/CompletedForm';
-
-import {currentPageState} from './states/atoms';
+import UserProfile from './components/Profile';
+import ContextShowcase from './components/ContextShowcase/contextShowcase';
 
 function App() {
   return (
@@ -13,6 +13,8 @@ function App() {
           <Login/>
           <Form/>
           <CompletedForm/>
+          <UserProfile />
+          <ContextShowcase />
       </div>
     </RecoilRoot>
   )

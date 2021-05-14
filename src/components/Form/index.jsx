@@ -39,6 +39,12 @@ const Form = () => {
       return setCompletedFormState(data);
     };
 
+    // Context Showcase
+    const news = [
+      'Sports',
+      'Local',
+      'Movie'
+    ];
     
     return(
     <form onSubmit={handleSubmit(onSubmit)} style={{display : displayPage === 'createAct' ? 'initial': 'none'}}>
@@ -50,6 +56,7 @@ const Form = () => {
         <input
           type='text'
           name='firstName'
+          value='Anson'
           ref={register({
             required: true,
             min: {
@@ -71,6 +78,7 @@ const Form = () => {
         <input
           type='text'
           name='lastName'
+          value='Ng'
           ref={register({
             required: true,
             validate: {
@@ -92,6 +100,7 @@ const Form = () => {
         <input
           type='text'
           name='Email'
+          value='Anson@Ng.com'
           ref={register({
             required: 'Your input is required',
             pattern: {
@@ -108,6 +117,7 @@ const Form = () => {
         <input
           type='text'
           name='age'
+          value='1'
           ref={register({ required: 'Your input is required', valueAsNumber: 'number ar' })}
         />
         {errors.age && <p className="error-msg">{errors.age.message}</p>}
@@ -119,6 +129,7 @@ const Form = () => {
           placeholder='Enter at least 8 characters'
           type='password'
           name='password'
+          value='12345678'
           ref={register({
             required: 'You must specify a password',
             validate: {
@@ -136,6 +147,7 @@ const Form = () => {
         <input
           name='password_repeat'
           type='password'
+          value='12345678'
           ref={register({
             validate: value => value === password.current || 'The passwords do not match'
           })}
@@ -158,73 +170,54 @@ const Form = () => {
       {/* age derived from date */}
       {userAge && <p>You're {userAge} years old</p>}
 
-
-      <div>
+      <div className="siteSettingsForm">
+        <h2>Site Theme</h2>
         <label className='labelRadio'>
-          Yes
+          Light
           <input
-            ref={register({ required: 'Please select radio button' })}
+            ref={register({ required: 'Please choose a theme' })}
             type='radio'
-            value='Yes'
+            value='dark'
             name='radio'
           />
         </label>
 
         <label className='labelRadio'>
-          No
+          Dark
           <input
-            ref={register({ required: 'Please select radio button' })}
+            ref={register({ required: 'Please choose a theme' })}
             type='radio'
-            value='No'
+            value='light'
             name='radio'
           />
         </label>
 
         {errors.radio && <p className="error-msg">{errors.radio.message}</p>}
-      </div>
 
-      <div>
-        <label>Options</label>
-        <select name='dropdown' ref={register({ required: 'Please select' })}>
+        <label>Team</label>
+        <select name='dropdown' ref={register({ required: 'Please choose one' })}>
           <option value=''>Please Select</option>
-          <option value='Yes'>Yes</option>
-          <option value='No'>No</option>
+          <option value='team-a'>Team A</option>
+          <option value='team-b'>Team B</option>
         </select>
 
         {errors.dropdown && <p className="error-msg">{errors.dropdown.message}</p>}
-      </div>
 
-      <div>
-        <label className='labelRadio newLine'>
-          <input
-            type='checkbox'
-            name='checkbox'
-            value='checkbox1'
-            ref={register({ required: 'select at least one' })}
-          />
-          checkbox1
-        </label>
+        <label>News</label>
+        <div className="checkboxContainer">
+          {news.map((item, index) => (
+            <label className='labelRadio newLine' key={index}>
+              <input
+                type='checkbox'
+                name='checkbox'
+                value={item}
+                ref={register()}
+              />
+              {item}
+            </label>
+          ))}
+        </div>
 
-        <label className='labelRadio newLine'>
-          <input
-            type='checkbox'
-            name='checkbox'
-            value='checkbox2'
-            ref={register({ required: 'select at least one' })}
-          />
-          checkbox2
-        </label>
-
-        <label className='labelRadio newLine'>
-          <input
-            type='checkbox'
-            name='checkbox'
-            value='checkbox3'
-            ref={register({ required: 'select at least one' })}
-          />
-          checkbox3
-        </label>
-        {errors.checkbox && <p className="error-msg">{errors.checkbox.message}</p>}
       </div>
 
       <input type='submit' />
