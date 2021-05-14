@@ -3,7 +3,9 @@ import { useContext, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { siteSettingsState } from '../../states/atoms';
 
-// import {SiteSettingsContext} from '../../states/context';
+import { SingleContext } from './contextAPI/theme-context';
+
+import './contextShowcase.scss';
 
 export const AtomFamilyButton = (prop) => {
 
@@ -11,7 +13,7 @@ export const AtomFamilyButton = (prop) => {
 
     useEffect(() => {
         console.log(prop.themeId, ' mounted / remounted');
-    }, [])
+    }, [prop.themeId])
 
     return (
         <div>
@@ -22,17 +24,24 @@ export const AtomFamilyButton = (prop) => {
     )
 }
 
-export const ContextButton = (prop) => {
+const SimpleButton = (prop) => {
+    return (
+        <div className="settingsButtonContainer">
+            <button className="settingsButton" onClick={prop.handler}>{prop.text}</button>
+        </div>
+    )
+}
 
-    useEffect(() => {
-        // console.log(prop.themeId, ' mounted / remounted');
-    }, [])
+export const ContextButton = () => {
+    
+    const {theme, update} = useContext(SingleContext);
 
+    
     return (
         <div>
-            Hello World
-            {/* <button onClick={() => {}}>
-            </button> */}
+            { theme.map((item, index) => 
+                <SimpleButton key={index} handler={() => update(index, item.split('').reverse().join(''))} text={item}></SimpleButton>
+            )}
         </div>
     )
 }

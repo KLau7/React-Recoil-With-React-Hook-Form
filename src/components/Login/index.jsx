@@ -2,6 +2,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentPageState, currentUser, existingProfiles } from "../../states/atoms";
 import { useCallback, useEffect, useRef } from "react";
 import { useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 
 const Login = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
@@ -21,12 +22,12 @@ const Login = () => {
         }
     }, [emailChangeHandler, loginsCollectionsState.length]);
 
-    const [loginUser, setLoginUser] = useRecoilState(currentUser);
+    const setLoginUser = useSetRecoilState(currentUser);
     const loginHandler = (data) => {
         setLoginUser(data.email);
         setCurrentPage('profile');
     }
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit } = useForm();
 
     return (
         <div id="login" style={{display: currentPage === 'login' ? 'initial' : 'none' }}>
