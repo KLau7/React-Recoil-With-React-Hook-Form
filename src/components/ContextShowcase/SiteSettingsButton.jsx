@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { siteSettingsState } from '../../states/atoms';
 
-import { SingleContext } from './contextAPI/theme-context';
+import { SingleContext } from './contextAPI/contexts';
 
 import './contextShowcase.scss';
 
