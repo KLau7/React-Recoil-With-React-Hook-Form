@@ -53,6 +53,8 @@ const Login = () => {
 
             <button onClick={() => {setCurrentPage('contextShowcasePage')}}>Go to Context Showcase page</button>
 
+            <button onClick={() => {setCurrentPage('asyncState')}}>Go to async state page</button>
+
         </div>
     )
 }

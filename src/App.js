@@ -5,6 +5,7 @@ import Form from './components/Form'
 import CompletedForm from './components/CompletedForm';
 import UserProfile from './components/Profile';
 import ContextShowcase from './components/ContextShowcase/contextShowcase';
+import AsyncState from './components/State';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <CompletedForm/>
           <UserProfile />
           <ContextShowcase />
+          <AsyncState />
       </div>
     </RecoilRoot>
   )
